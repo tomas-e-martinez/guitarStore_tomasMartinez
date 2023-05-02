@@ -18,8 +18,23 @@ const guitarra4 = {
     marca: "Gibson",
     precio: 1800
   }
+const guitarra5 = {
+    modelo: "Mustang",
+    marca: "Squier",
+    precio: 500
+  }
+const guitarra6 = {
+    modelo: "G5427T",
+    marca: "Gretsch",
+    precio: 1200
+  }
+const guitarra7 = {
+    modelo: "RG6003FM",
+    marca: "Ibanez",
+    precio: 400
+  }
 
-const guitarrasEnVenta = [guitarra1, guitarra2, guitarra3, guitarra4];
+const guitarrasEnVenta = [guitarra1, guitarra2, guitarra3, guitarra4, guitarra5, guitarra6, guitarra7];
 
 function mostrarGuitarras() {
     let mensaje = "Guitarras en venta:\n\n";
