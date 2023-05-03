@@ -37,21 +37,21 @@ const guitarra7 = {
 const guitarrasEnVenta = [guitarra1, guitarra2, guitarra3, guitarra4, guitarra5, guitarra6, guitarra7];
 
 function mostrarGuitarras() {
-    let mensaje = "Guitarras en venta:\n\n";
+    let mensaje = "En este momento, contamos con "+guitarrasEnVenta.length+" guitarras en venta:\n\n";
     guitarrasEnVenta.forEach((guitarra, index) => mensaje += (index + 1)+". "+guitarra.marca+" "+guitarra.modelo+" - Precio : $"+guitarra.precio+".\n")
     alert(mensaje);
 }
 
-/* function buscarPrecioMaximo() {
+function buscarPrecioMaximo() {
     let precioMaximo = prompt("Ingrese el precio máximo deseado:");
     const guitarrasPrecioMaximo = guitarrasEnVenta.filter((guitarra) => guitarra.precio <= precioMaximo);
-    let mensaje = "Encontramos "+guitarrasPrecioMaximo.length+" guitarra/s en su rango de precio.\n\n";
+    let mensaje = "Encontramos "+guitarrasPrecioMaximo.length+" guitarra/s de hasta $"+precioMaximo+".\n\n";
     guitarrasPrecioMaximo.forEach((guitarra, index) => mensaje += (index + 1)+". "+guitarra.marca+" "+guitarra.modelo+" - Precio : $"+guitarra.precio+".\n");
     if(guitarrasPrecioMaximo.length===0){
         alert("No encontramos guitarras que se ajusten a su presupuesto.")
     } else
     alert(mensaje);
-} */
+}
 
 function ordenarPorPrecio() {
     guitarrasEnVenta.sort((a, b) => a.precio - b.precio);
@@ -61,7 +61,7 @@ function ordenarPorPrecio() {
 function buscarMarca() {
     let marcaBuscada = prompt("Ingrese la marca (Ej.: Gibson, Fender):");
     const guitarrasBuscarMarca = guitarrasEnVenta.filter((guitarra) => guitarra.marca.toLowerCase() === marcaBuscada.toLowerCase());
-    let mensaje = "Encontramos "+guitarrasBuscarMarca.length+" guitarras de la marca "+marcaBuscada+":\n\n";
+    let mensaje = "Encontramos "+guitarrasBuscarMarca.length+" guitarra/s de la marca "+marcaBuscada+":\n\n";
     guitarrasBuscarMarca.forEach((guitarra, index) => mensaje += (index + 1)+". "+guitarra.marca+" "+guitarra.modelo+" - Precio : $"+guitarra.precio+".\n");
     if(guitarrasBuscarMarca.length===0){
         alert("No encontramos guitarras de la marca "+marcaBuscada+".")
@@ -82,7 +82,7 @@ function menuPrincipal(){
     let verMenu = true;
     let opcion;
     do {
-        opcion = prompt("Bienvenido/a a la tienda de guitarras.\nSeleccione una opción:\n\n1. Ver guitarras en venta\n2. Buscar por marca\n3. Ordenar por precio\n4. Agregar guitarra\n5. Salir");
+        opcion = prompt("Bienvenido/a a la tienda de guitarras.\nSeleccione una opción:\n\n1. Ver guitarras en venta\n2. Buscar por marca\n3. Ordenar por precio\n4. Agregar guitarra\n5. Buscar por precio máximo\n6. Salir");
         switch(opcion) {
             case "1":
                 mostrarGuitarras();
@@ -97,6 +97,9 @@ function menuPrincipal(){
                 agregarGuitarra();
                 break;
             case "5":
+                buscarPrecioMaximo();
+                break;
+            case "6":
                 alert("¡Gracias por visitarnos!");
                 verMenu=false;
                 break;
