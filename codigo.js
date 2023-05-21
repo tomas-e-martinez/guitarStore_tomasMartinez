@@ -207,15 +207,21 @@ function cargarGuitarrasLocalStorage(){
 }
 
 function eliminarGuitarrasLocalStorage(){
-  localStorage.removeItem("guitarrasEnVenta");
   const p = document.createElement("p");
-  p.innerText = "Las guitarras que agregaste fueron eliminadas con éxito. \n Por favor, actualiza la página para visualizar la tienda correctamente."
-  const button = document.createElement("button");
-  button.textContent = "Actualizar";
-  button.addEventListener("click", actualizarPagina)
-  guitarrasDiv.innerHTML = '';
-  guitarrasDiv.appendChild(p);
-  guitarrasDiv.appendChild(button);
+  if(localStorage.getItem("guitarrasEnVenta")){
+    localStorage.removeItem("guitarrasEnVenta");
+    p.innerText = "Las guitarras que agregaste fueron eliminadas con éxito. \n Por favor, actualiza la página para visualizar la tienda correctamente."
+    const button = document.createElement("button");
+    button.textContent = "Actualizar";
+    button.addEventListener("click", actualizarPagina)
+    guitarrasDiv.innerHTML = '';
+    guitarrasDiv.appendChild(p);
+    guitarrasDiv.appendChild(button);
+  } else {
+    p.innerText = "No hay guitarras agregadas."
+    guitarrasDiv.innerHTML = '';
+    guitarrasDiv.appendChild(p);
+  }
 }
 
 function actualizarPagina(){
