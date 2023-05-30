@@ -4,7 +4,14 @@ class Guitarra {
     this.marca = marca;
     this.precio = precio;
   }
+
+  agregarAlCarrito(carrito) {
+    carrito.push(this);
+    guardarCarritoLocalStorage();
+  }
+
 }
+
 // GUITARRAS DEFAULT DE LA TIENDA
 const guitarra1 = new Guitarra("Stratocaster", "Fender", 1500);
 const guitarra2 = new Guitarra("Telecaster", "Fender", 1000);
@@ -14,8 +21,8 @@ const guitarra5 = new Guitarra("Mustang", "Squier", 500);
 const guitarra6 = new Guitarra("G5427T", "Gretsch", 1200);
 const guitarra7 = new Guitarra("RG6003FM", "Ibanez", 400);
 
+let carrito = localStorage.getItem("carrito")? JSON.parse(localStorage.getItem("carrito")) : [];
 let guitarrasEnVenta = [guitarra1, guitarra2, guitarra3, guitarra4, guitarra5, guitarra6, guitarra7];
-cargarGuitarrasLocalStorage();
 const guitarrasDiv =  document.getElementById("guitarrasDiv");
 
 // BOTONES
@@ -31,11 +38,8 @@ ordenarPorPrecioBtn.addEventListener("click", ordenarPorPrecio);
 const buscarMarcaBtn = document.getElementById("buscarMarcaBtn");
 buscarMarcaBtn.addEventListener("click", buscarMarcaCrearInput);
 
-const agregarGuitarraBtn = document.getElementById("agregarGuitarraBtn");
-agregarGuitarraBtn.addEventListener("click", agregarGuitarraCrearInput);
-
-const eliminarGuitarrasBtn = document.getElementById("eliminarGuitarrasBtn");
-eliminarGuitarrasBtn.addEventListener("click", eliminarGuitarrasLocalStorage);
+const carritoBtn = document.getElementById("carritoBtn");
+carritoBtn.addEventListener("click", verCarrito);
 
 // FUNCIONES
 function mostrarGuitarras(){
@@ -45,6 +49,15 @@ function mostrarGuitarras(){
   guitarrasEnVenta.forEach(guitarra => {
     const li = document.createElement("li");
     li.textContent= `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
+
+    const button = document.createElement("button");
+    button.textContent = "Agregar al carrito";
+    button.addEventListener("click", () => {
+      guitarra.agregarAlCarrito(carrito);
+      console.log(carrito);
+    })
+
+    li.appendChild(button);
     ul.appendChild(li)});
   guitarrasDiv.innerHTML = '';
   guitarrasDiv.appendChild(p);
@@ -90,6 +103,15 @@ function buscarPrecioMaximoCrearInput(){
       guitarrasPrecioMaximo.forEach(guitarra => {
         const li = document.createElement("li");
         li.textContent= `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
+        
+        const button = document.createElement("button");
+        button.textContent = "Agregar al carrito";
+        button.addEventListener("click", () => {
+        guitarra.agregarAlCarrito(carrito);
+        console.log(carrito);
+        })
+
+        li.appendChild(button);
         ul.appendChild(li);
         guitarrasDiv.innerHTML = '';
         guitarrasDiv.appendChild(p);
@@ -138,7 +160,15 @@ function buscarMarcaCrearInput(){
     const ul = document.createElement("ul");
     guitarrasMarcaBuscada.forEach(guitarra => {
       const li = document.createElement("li");
-      li.textContent= `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
+      li.textContent = `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
+
+      const button = document.createElement("button");
+      button.textContent = "Agregar al carrito";
+      button.addEventListener("click", () => {
+      guitarra.agregarAlCarrito(carrito);
+      })
+
+      li.appendChild(button);
       ul.appendChild(li);
       guitarrasDiv.innerHTML = '';
       guitarrasDiv.appendChild(p);
@@ -147,83 +177,77 @@ function buscarMarcaCrearInput(){
   }
 }
 
-function agregarGuitarraCrearInput(){
-  guitarrasDiv.innerHTML = '';
+function verCarrito() {
+  const precioTotal = carrito.reduce((acumulador, guitarra) => acumulador + guitarra.precio, 0);
   const p = document.createElement("p");
-  p.innerText = "Ingrese los datos de la guitarra a agregar:"
+  if (carrito.length == 0){
+  const button = document.createElement("button")
+  p.innerText = "Su carrito se encuentra vacío.";
+  button.textContent = "Ver guitarras en venta"
+  button.addEventListener("click", mostrarGuitarras);
+  
+  guitarrasDiv.innerHTML = '';
   guitarrasDiv.appendChild(p);
-  const marcaInput = document.createElement('input');
-  marcaInput.type = 'text';
-  marcaInput.id = 'marcaInput';
-  marcaInput.placeholder = 'Marca';
-  guitarrasDiv.appendChild(marcaInput);
-  const modeloInput = document.createElement('input');
-  modeloInput.type = 'text';
-  modeloInput.id = 'modeloInput';
-  modeloInput.placeholder = 'Modelo';
-  guitarrasDiv.appendChild(modeloInput);
-  const precioInput = document.createElement('input');
-  precioInput.type = 'number';
-  precioInput.id = 'precioInput';
-  precioInput.placeholder = 'Precio';
-  guitarrasDiv.appendChild(precioInput);
-  const botonAgregar = document.createElement('button');
-  botonAgregar.textContent = 'Agregar';
-  botonAgregar.addEventListener('click', agregarGuitarra);
-  guitarrasDiv.appendChild(botonAgregar);
-  function agregarGuitarra(){ 
-    const marca = document.getElementById('marcaInput').value;
-    const modelo = document.getElementById('modeloInput').value;
-    const precio = document.getElementById('precioInput').value;
-    if(marca == false || modelo == false || precio == false) {
-      const p = document.createElement("p");
-      p.innerText = `ERROR: Ingrese datos válidos.`;
-      const button = document.createElement("button");
-      button.textContent = "Volver"
-      button.addEventListener("click", agregarGuitarraCrearInput);
+  guitarrasDiv.appendChild(button);
+  } else {
+    p.innerText = `Hay ${carrito.length} guitarras en el carrito.`;
+    const pTotal = document.createElement("p");
+    pTotal.innerText = `Total: $${precioTotal}`
+    const vaciarCarritoBtn = document.createElement("button");
+    vaciarCarritoBtn.textContent = "Vaciar carrito"
+    vaciarCarritoBtn.addEventListener("click", vaciarCarrito)
+    const finalizarCompraBtn = document.createElement("button");
+    finalizarCompraBtn.textContent = "Finalizar compra";
+    finalizarCompraBtn.addEventListener("click", finalizarCompra)
+    
+    const ul = document.createElement("ul");
+    carrito.forEach(guitarra => {
+      const li = document.createElement("li");
+      li.textContent = `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
+
+      const eliminarDelCarritoBtn = document.createElement("button");
+      eliminarDelCarritoBtn.textContent = "Eliminar del carrito";
+      eliminarDelCarritoBtn.addEventListener("click", () => {
+        eliminarDelCarrito(guitarra, carrito);
+        verCarrito(carrito);
+      })
+
+      li.appendChild(eliminarDelCarritoBtn);
+      ul.appendChild(li);
       guitarrasDiv.innerHTML = '';
       guitarrasDiv.appendChild(p);
-      guitarrasDiv.appendChild(button)
-    } else {
-      const nuevaGuitarra = new Guitarra(modelo, marca, precio);
-      guitarrasEnVenta.push(nuevaGuitarra);
-      const p = document.createElement("p");
-      p.innerText = `La guitarra ${marca} ${modelo} con valor de $${precio} fue agregada con éxito`;
-      guitarrasDiv.innerHTML = '';
-      guitarrasDiv.appendChild(p);}
-      guardarGuitarrasLocalStorage();
+      guitarrasDiv.appendChild(ul);
+      guitarrasDiv.appendChild(pTotal);
+      guitarrasDiv.appendChild(vaciarCarritoBtn);
+      guitarrasDiv.appendChild(finalizarCompraBtn);
+    })   
   }
 }
 
-function guardarGuitarrasLocalStorage(){
-  localStorage.setItem('guitarrasEnVenta', JSON.stringify(guitarrasEnVenta));
-}
-
-function cargarGuitarrasLocalStorage(){
-  const guitarrasGuardadas = localStorage.getItem('guitarrasEnVenta');
-  if (guitarrasGuardadas) {
-    guitarrasEnVenta = JSON.parse(guitarrasGuardadas);
+function eliminarDelCarrito(guitarra, carrito) {
+  const index = carrito.findIndex(item => item === guitarra);
+  if (index !== -1) {
+    carrito.splice(index, 1);
+    guardarCarritoLocalStorage();
   }
 }
 
-function eliminarGuitarrasLocalStorage(){
-  const p = document.createElement("p");
-  if(localStorage.getItem("guitarrasEnVenta")){
-    localStorage.removeItem("guitarrasEnVenta");
-    p.innerText = "Las guitarras que agregaste fueron eliminadas con éxito. \n Por favor, actualiza la página para visualizar la tienda correctamente."
-    const button = document.createElement("button");
-    button.textContent = "Actualizar";
-    button.addEventListener("click", actualizarPagina)
-    guitarrasDiv.innerHTML = '';
-    guitarrasDiv.appendChild(p);
-    guitarrasDiv.appendChild(button);
-  } else {
-    p.innerText = "No hay guitarras agregadas."
-    guitarrasDiv.innerHTML = '';
-    guitarrasDiv.appendChild(p);
-  }
-}
-
+/* 
 function actualizarPagina(){
   location.reload();
+} */
+
+function guardarCarritoLocalStorage(){
+  localStorage.setItem("carrito", JSON.stringify(carrito))
+}
+
+function vaciarCarrito(){
+  localStorage.removeItem("carrito");
+  carrito = [];
+  verCarrito();
+}
+
+function finalizarCompra(){
+  console.log("compra finalizada");
+  vaciarCarrito();
 }
