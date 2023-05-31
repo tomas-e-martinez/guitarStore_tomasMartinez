@@ -7,7 +7,18 @@ class Guitarra {
 
   agregarAlCarrito(carrito) {
     carrito.push(this);
+    cantidadBotonCarrito();
     guardarCarritoLocalStorage();
+    Toastify({
+      text: `${this.marca} ${this.modelo} añadida al carrito.`,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "#5bc0de",
+        'box-shadow': "-8px 9px 73px -14px rgba(0,0,0,0.46)",
+      },
+    }).showToast();
   }
 
 }
@@ -40,6 +51,8 @@ buscarMarcaBtn.addEventListener("click", buscarMarcaCrearInput);
 
 const carritoBtn = document.getElementById("carritoBtn");
 carritoBtn.addEventListener("click", verCarrito);
+
+cantidadBotonCarrito();
 
 // FUNCIONES
 function mostrarGuitarras(){
@@ -178,6 +191,7 @@ function buscarMarcaCrearInput(){
 }
 
 function verCarrito() {
+  cantidadBotonCarrito();
   const precioTotal = carrito.reduce((acumulador, guitarra) => acumulador + guitarra.precio, 0);
   const p = document.createElement("p");
   if (carrito.length == 0){
@@ -195,7 +209,10 @@ function verCarrito() {
     pTotal.innerText = `Total: $${precioTotal}`
     const vaciarCarritoBtn = document.createElement("button");
     vaciarCarritoBtn.textContent = "Vaciar carrito"
-    vaciarCarritoBtn.addEventListener("click", vaciarCarrito)
+    vaciarCarritoBtn.addEventListener("click", () => {
+      vaciarCarrito();
+      toastifyVaciarCarrito();
+    })
     const finalizarCompraBtn = document.createElement("button");
     finalizarCompraBtn.textContent = "Finalizar compra";
     finalizarCompraBtn.addEventListener("click", finalizarCompra)
@@ -229,13 +246,19 @@ function eliminarDelCarrito(guitarra, carrito) {
   if (index !== -1) {
     carrito.splice(index, 1);
     guardarCarritoLocalStorage();
+    Toastify({
+      text: `${guitarra.marca} ${guitarra.modelo} eliminada del carrito.`,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "#f0ad4e",
+        'box-shadow': "-8px 9px 73px -14px rgba(0,0,0,0.46)",
+      },
+    }).showToast();
   }
 }
 
-/* 
-function actualizarPagina(){
-  location.reload();
-} */
 
 function guardarCarritoLocalStorage(){
   localStorage.setItem("carrito", JSON.stringify(carrito))
@@ -247,7 +270,38 @@ function vaciarCarrito(){
   verCarrito();
 }
 
+function toastifyVaciarCarrito() {
+  Toastify({
+    text: `El carrito fue vaciado.`,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    style : {
+      background: "white",
+      color: "black",
+      'box-shadow': "-8px 9px 73px -14px rgba(0,0,0,0.46)",
+    },
+  }).showToast();
+}
+
 function finalizarCompra(){
-  console.log("compra finalizada");
-  vaciarCarrito();
+  Swal.fire({
+    icon: 'question',
+    title: 'Confirmar compra',
+    text: '¿Está seguro/a de realizar esta compra?',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Comprar',
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      vaciarCarrito();
+      guitarrasDiv.innerHTML = '';
+      Swal.fire('¡Compra realizada con éxito!', 'Su pedido ha sido confirmado. ¡Disfrute de su compra!', 'success')
+    }
+  })
+}
+
+function cantidadBotonCarrito(){
+  carrito.length > 0 ? carritoBtn.value = `Carrito (${carrito.length})` : carritoBtn.value = "Carrito";
 }
