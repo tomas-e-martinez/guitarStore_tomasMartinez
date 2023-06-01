@@ -185,7 +185,7 @@ function verCarrito() {
   const button = document.createElement("button")
   p.innerText = "Su carrito se encuentra vacío.";
   button.textContent = "Ver guitarras en venta"
-  button.addEventListener("click", mostrarGuitarras);
+  button.addEventListener("click", () => {mostrarGuitarras(guitarrasEnVenta, "En este momento contamos con "+guitarrasEnVenta.length+" guitarras disponibles:")});
   
   guitarrasDiv.innerHTML = '';
   guitarrasDiv.appendChild(p);
