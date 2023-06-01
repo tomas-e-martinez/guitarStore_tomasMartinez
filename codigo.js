@@ -56,27 +56,6 @@ cantidadBotonCarrito();
 
 // FUNCIONES
 
-function mostrarGuitarras(arrayGuitarras, mensaje){
-  const ul = document.createElement("ul");
-  const p = document.createElement("p");
-  p.textContent = mensaje;
-  arrayGuitarras.forEach(guitarra => {
-    const li = document.createElement("li");
-    li.textContent= `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
-
-    const button = document.createElement("button");
-    button.textContent = "Agregar al carrito";
-    button.addEventListener("click", () => {
-      guitarra.agregarAlCarrito(carrito);
-      console.log(carrito);
-    })
-
-    li.appendChild(button);
-    ul.appendChild(li)});
-  guitarrasDiv.innerHTML = '';
-  guitarrasDiv.appendChild(p);
-  guitarrasDiv.appendChild(ul);
-}
 
 function mostrarGuitarras(arrayGuitarras, mensaje){
   const p = document.createElement("p");
@@ -113,6 +92,7 @@ function mostrarGuitarras(arrayGuitarras, mensaje){
     li.appendChild(button);
     ul.appendChild(li)});
   guitarrasDiv.innerHTML = '';
+  guitarrasDiv.appendChild(p);
   guitarrasDiv.appendChild(ul);
 }
 
