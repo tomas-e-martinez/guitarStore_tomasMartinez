@@ -38,7 +38,7 @@ const guitarrasDiv =  document.getElementById("guitarrasDiv");
 
 // BOTONES
 const mostrarGuitarrasBtn = document.getElementById("mostrarGuitarrasBtn");
-mostrarGuitarrasBtn.addEventListener("click", mostrarGuitarras)
+mostrarGuitarrasBtn.addEventListener("click", () => {mostrarGuitarras(guitarrasEnVenta, "En este momento contamos con "+guitarrasEnVenta.length+" guitarras disponibles:")})
 
 const buscarPrecioMaximoBtn = document.getElementById("buscarPrecioMaximoBtn");
 buscarPrecioMaximoBtn.addEventListener("click", buscarPrecioMaximoCrearInput);
@@ -55,11 +55,12 @@ carritoBtn.addEventListener("click", verCarrito);
 cantidadBotonCarrito();
 
 // FUNCIONES
-function mostrarGuitarras(){
+
+function mostrarGuitarras(arrayGuitarras, mensaje){
   const ul = document.createElement("ul");
   const p = document.createElement("p");
-  p.textContent = "En este momento contamos con "+guitarrasEnVenta.length+" guitarras disponibles:";
-  guitarrasEnVenta.forEach(guitarra => {
+  p.textContent = mensaje;
+  arrayGuitarras.forEach(guitarra => {
     const li = document.createElement("li");
     li.textContent= `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
 
@@ -76,6 +77,45 @@ function mostrarGuitarras(){
   guitarrasDiv.appendChild(p);
   guitarrasDiv.appendChild(ul);
 }
+
+function mostrarGuitarras(arrayGuitarras, mensaje){
+  const p = document.createElement("p");
+  const ul = document.createElement("ul");
+
+  p.textContent = mensaje;
+  arrayGuitarras.forEach(guitarra => {
+    const li = document.createElement("li");
+    li.classList.add("contenedorGuitarra");
+
+    const imgGuitarra = document.createElement("img");
+    imgGuitarra.src = 'assets/img/guitarraPlaceholder.png';
+    imgGuitarra.classList.add("imgGuitarra");
+
+    const pPrecioGuitarra = document.createElement("p");
+    pPrecioGuitarra.textContent = `$${guitarra.precio}`;
+    pPrecioGuitarra.classList.add("precioGuitarra");
+
+    const h1Guitarra = document.createElement("h1");
+    h1Guitarra.textContent = `${guitarra.marca} ${guitarra.modelo}`
+    h1Guitarra.classList.add("h1Guitarra");
+  
+    const button = document.createElement("button");
+    button.textContent = "Agregar al carrito";
+    button.classList.add("botonAgregarCarrito");
+    button.addEventListener("click", () => {
+      guitarra.agregarAlCarrito(carrito);
+      console.log(carrito);
+    })
+
+    li.appendChild(h1Guitarra);
+    li.appendChild(pPrecioGuitarra);
+    li.appendChild(imgGuitarra);
+    li.appendChild(button);
+    ul.appendChild(li)});
+  guitarrasDiv.innerHTML = '';
+  guitarrasDiv.appendChild(ul);
+}
+
 
 function buscarPrecioMaximoCrearInput(){
   const p = document.createElement("p");
@@ -111,25 +151,8 @@ function buscarPrecioMaximoCrearInput(){
         guitarrasDiv.appendChild(p);
         guitarrasDiv.appendChild(button);
       } else {
-      p.textContent = `Encontramos ${guitarrasPrecioMaximo.length} guitarra/s de hasta $${precioMaximo}.`;
-      const ul = document.createElement("ul");
-      guitarrasPrecioMaximo.forEach(guitarra => {
-        const li = document.createElement("li");
-        li.textContent= `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
-        
-        const button = document.createElement("button");
-        button.textContent = "Agregar al carrito";
-        button.addEventListener("click", () => {
-        guitarra.agregarAlCarrito(carrito);
-        console.log(carrito);
-        })
-
-        li.appendChild(button);
-        ul.appendChild(li);
-        guitarrasDiv.innerHTML = '';
-        guitarrasDiv.appendChild(p);
-        guitarrasDiv.appendChild(ul);
-      })}}
+        mostrarGuitarras(guitarrasPrecioMaximo, `Encontramos ${guitarrasPrecioMaximo.length} guitarra/s de hasta $${precioMaximo}.`);
+      }}
 
   }
 } 
@@ -169,24 +192,8 @@ function buscarMarcaCrearInput(){
       guitarrasDiv.appendChild(p);
       guitarrasDiv.appendChild(button);
     } else {
-    p.textContent = `Encontramos ${guitarrasMarcaBuscada.length} guitarra/s de la marca "${marcaBuscada}".`;
-    const ul = document.createElement("ul");
-    guitarrasMarcaBuscada.forEach(guitarra => {
-      const li = document.createElement("li");
-      li.textContent = `${guitarra.marca} ${guitarra.modelo} - Precio $${guitarra.precio}`;
-
-      const button = document.createElement("button");
-      button.textContent = "Agregar al carrito";
-      button.addEventListener("click", () => {
-      guitarra.agregarAlCarrito(carrito);
-      })
-
-      li.appendChild(button);
-      ul.appendChild(li);
-      guitarrasDiv.innerHTML = '';
-      guitarrasDiv.appendChild(p);
-      guitarrasDiv.appendChild(ul);
-    })}
+      mostrarGuitarras(guitarrasMarcaBuscada, `Encontramos ${guitarrasMarcaBuscada.length} guitarra/s de la marca "${marcaBuscada}".`)
+    }
   }
 }
 

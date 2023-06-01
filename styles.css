@@ -13,3 +13,19 @@ button {
 .nav{
     list-style: none;
 }
+
+.contenedorGuitarra{
+    display: inline-block;
+}
+
+
+.precioGuitarra{
+    margin-top: -25px;
+}
+
+/* .h1Guitarra{}
+
+.botonAgregarCarrito{}
+
+
+.imgGuitarra{} */
