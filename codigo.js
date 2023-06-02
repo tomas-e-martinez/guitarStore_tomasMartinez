@@ -23,17 +23,19 @@ class Guitarra {
 
 }
 
-// GUITARRAS DEFAULT DE LA TIENDA
-const guitarra1 = new Guitarra("Stratocaster", "Fender", 1500);
-const guitarra2 = new Guitarra("Telecaster", "Fender", 1000);
-const guitarra3 = new Guitarra("Les Paul", "Gibson", 2000);
-const guitarra4 = new Guitarra("SG", "Gibson", 1800);
-const guitarra5 = new Guitarra("Mustang", "Squier", 500);
-const guitarra6 = new Guitarra("G5427T", "Gretsch", 1200);
-const guitarra7 = new Guitarra("RG6003FM", "Ibanez", 400);
 
 let carrito = localStorage.getItem("carrito")? JSON.parse(localStorage.getItem("carrito")) : [];
-let guitarrasEnVenta = [guitarra1, guitarra2, guitarra3, guitarra4, guitarra5, guitarra6, guitarra7];
+let guitarrasEnVenta = [];
+
+fetch('./guitarras.json')
+.then(response => response.json())
+.then(data => {
+  guitarrasEnVenta = data.map(guitarra => new Guitarra(guitarra.modelo, guitarra.marca, guitarra.precio));
+})
+.catch(error => {
+  console.log('ERROR: No se pudieron cargar las guitarras:', error)
+})
+
 const guitarrasDiv =  document.getElementById("guitarrasDiv");
 
 // BOTONES
@@ -68,6 +70,7 @@ function mostrarGuitarras(arrayGuitarras, mensaje){
 
     const imgGuitarra = document.createElement("img");
     imgGuitarra.src = 'assets/img/guitarraPlaceholder.png';
+    imgGuitarra.alt = "guitarraPlaceholder"
     imgGuitarra.classList.add("imgGuitarra");
 
     const pPrecioGuitarra = document.createElement("p");
@@ -83,7 +86,6 @@ function mostrarGuitarras(arrayGuitarras, mensaje){
     button.classList.add("botonAgregarCarrito");
     button.addEventListener("click", () => {
       guitarra.agregarAlCarrito(carrito);
-      console.log(carrito);
     })
 
     li.appendChild(h1Guitarra);

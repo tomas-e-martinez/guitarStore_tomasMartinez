@@ -1,0 +1,38 @@
+[
+    {
+      "modelo": "Stratocaster",
+      "marca": "Fender",
+      "precio": 1500
+    },
+    {
+      "modelo": "Telecaster",
+      "marca": "Fender",
+      "precio": 1000
+    },
+    {
+      "modelo": "Les Paul",
+      "marca": "Gibson",
+      "precio": 2000
+    },
+    {
+      "modelo": "SG",
+      "marca": "Gibson",
+      "precio": 1800
+    },
+    {
+      "modelo": "Mustang",
+      "marca": "Squier",
+      "precio": 500
+    },
+    {
+      "modelo": "G5427T",
+      "marca": "Gretsch",
+      "precio": 1200
+    },
+    {
+      "modelo": "RG6003FM",
+      "marca": "Ibanez",
+      "precio": 400
+    }
+  ]
+  
