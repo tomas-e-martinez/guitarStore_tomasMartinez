@@ -32,3 +32,9 @@ button {
     width: 400px;
     aspect-ratio: 1/1;
 }
+
+@media (max-width: 500px) {
+    .imgGuitarra {
+      width: 100%;
+    }
+  }
