@@ -72,6 +72,9 @@ function mostrarGuitarras(arrayGuitarras, mensaje){
 
     const imgGuitarra = document.createElement("img");
     imgGuitarra.src = imagen;
+    imgGuitarra.onerror = function() {
+      this.src = "assets/img/guitarraPlaceholder.png";
+    };    
     imgGuitarra.alt = "guitarraPlaceholder"
     imgGuitarra.classList.add("imgGuitarra");
 
