@@ -33,6 +33,16 @@
       "modelo": "RG6003FM",
       "marca": "Ibanez",
       "precio": 400
+    },
+    {
+      "modelo": "Flying V",
+      "marca": "Epiphone",
+      "precio": 600
+    },
+    {
+      "modelo": "SE John Mayer Silver Sky - Stone Blue",
+      "marca": "PRS",
+      "precio": 850
     }
   ]
   
