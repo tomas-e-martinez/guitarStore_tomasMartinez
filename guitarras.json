@@ -2,47 +2,56 @@
     {
       "modelo": "Stratocaster",
       "marca": "Fender",
-      "precio": 1500
+      "precio": 1500,
+      "imagen": "https://bairesrocks.vteximg.com.br/arquivos/ids/241660-900-900/Sin-titulo-1-02.jpg?v=638155374342400000"
     },
     {
       "modelo": "Telecaster",
       "marca": "Fender",
-      "precio": 1000
+      "precio": 1000,
+      "imagen": "https://tiendafeedback.com.ar/12803-large_default/fender-telecaster-american-standard-2012-rosewood.jpg"
     },
     {
       "modelo": "Les Paul",
       "marca": "Gibson",
-      "precio": 2000
+      "precio": 2000,
+      "imagen": "https://images.reverb.com/image/upload/s--guECIv80--/f_auto,t_supersize/v1568321250/y0tkodpd3mj6uqz67cui.jpg"
     },
     {
       "modelo": "SG",
       "marca": "Gibson",
-      "precio": 1800
+      "precio": 1800,
+      "imagen": "https://ar.xprostore.com/image/cache/data/imagenesweb/sgsp00vnch1-650x650.jpg"
     },
     {
       "modelo": "Mustang",
       "marca": "Squier",
-      "precio": 500
+      "precio": 500,
+      "imagen": "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/437693/16996399_800.jpg"
     },
     {
       "modelo": "G5427T",
       "marca": "Gretsch",
-      "precio": 1200
+      "precio": 1200,
+      "imagen": "https://images.reverb.com/image/upload/s--VwoaAlGk--/f_auto,t_large/v1676656041/wc5z5rutaup5ennxjn08.png"
     },
     {
       "modelo": "RG6003FM",
       "marca": "Ibanez",
-      "precio": 400
+      "precio": 400,
+      "imagen": "https://images.reverb.com/image/upload/s--rywhwaP6--/f_auto,t_large/v1599252945/y1arzqjopekuaoxadczg.jpg"
     },
     {
       "modelo": "Flying V",
       "marca": "Epiphone",
-      "precio": 600
+      "precio": 600,
+      "imagen": "https://www.jimlaabsmusicstore.com/wp-content/uploads/2020/08/Flying-V-Ebony_1.jpg"
     },
     {
       "modelo": "SE John Mayer",
       "marca": "PRS",
-      "precio": 850
+      "precio": 850,
+      "imagen": "https://www.mannys.com.au/images/ProductImages/500/PRS-SESSSTB.jpg"
     }
   ]
   

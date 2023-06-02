@@ -25,7 +25,10 @@ button {
 
 /* .h1Guitarra{}
 
-.botonAgregarCarrito{}
+.botonAgregarCarrito{} */
 
 
-.imgGuitarra{} */
+.imgGuitarra{
+    width: 400px;
+    aspect-ratio: 1/1;
+}

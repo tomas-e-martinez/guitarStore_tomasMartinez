@@ -1,8 +1,9 @@
 class Guitarra {
-  constructor(modelo, marca, precio) {
+  constructor(modelo, marca, precio, imagen) {
     this.modelo = modelo;
     this.marca = marca;
     this.precio = precio;
+    this.imagen = imagen;
   }
 
   agregarAlCarrito(carrito) {
@@ -30,7 +31,7 @@ let guitarrasEnVenta = [];
 fetch('./guitarras.json')
 .then(response => response.json())
 .then(data => {
-  guitarrasEnVenta = data.map(guitarra => new Guitarra(guitarra.modelo, guitarra.marca, guitarra.precio));
+  guitarrasEnVenta = data.map(guitarra => new Guitarra(guitarra.modelo, guitarra.marca, guitarra.precio, guitarra.imagen));
 })
 .catch(error => {
   console.log('ERROR: No se pudieron cargar las guitarras:', error)
@@ -65,20 +66,21 @@ function mostrarGuitarras(arrayGuitarras, mensaje){
 
   p.textContent = mensaje;
   arrayGuitarras.forEach(guitarra => {
+    const {modelo, marca, precio, imagen} = guitarra
     const li = document.createElement("li");
     li.classList.add("contenedorGuitarra");
 
     const imgGuitarra = document.createElement("img");
-    imgGuitarra.src = 'assets/img/guitarraPlaceholder.png';
+    imgGuitarra.src = imagen;
     imgGuitarra.alt = "guitarraPlaceholder"
     imgGuitarra.classList.add("imgGuitarra");
 
     const pPrecioGuitarra = document.createElement("p");
-    pPrecioGuitarra.textContent = `$${guitarra.precio}`;
+    pPrecioGuitarra.textContent = `$${precio}`;
     pPrecioGuitarra.classList.add("precioGuitarra");
 
     const h1Guitarra = document.createElement("h1");
-    h1Guitarra.textContent = `${guitarra.marca} ${guitarra.modelo}`
+    h1Guitarra.textContent = `${marca} ${modelo}`
     h1Guitarra.classList.add("h1Guitarra");
   
     const button = document.createElement("button");
