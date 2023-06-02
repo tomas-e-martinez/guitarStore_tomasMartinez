@@ -21,7 +21,6 @@ class Guitarra {
       },
     }).showToast();
   }
-
 }
 
 
@@ -46,8 +45,11 @@ mostrarGuitarrasBtn.addEventListener("click", () => {mostrarGuitarras(guitarrasE
 const buscarPrecioMaximoBtn = document.getElementById("buscarPrecioMaximoBtn");
 buscarPrecioMaximoBtn.addEventListener("click", buscarPrecioMaximoCrearInput);
 
-const ordenarPorPrecioBtn = document.getElementById("ordenarPorPrecioBtn");
-ordenarPorPrecioBtn.addEventListener("click", ordenarPorPrecio);
+const ordenarBarataACaraBtn = document.getElementById("ordenarBarataACaraBtn");
+ordenarBarataACaraBtn.addEventListener("click", ordenarBarataACara);
+
+const ordenarCaraABarataBtn = document.getElementById("ordenarCaraABarataBtn");
+ordenarCaraABarataBtn.addEventListener("click", ordenarCaraABarata);
 
 const buscarMarcaBtn = document.getElementById("buscarMarcaBtn");
 buscarMarcaBtn.addEventListener("click", buscarMarcaCrearInput);
@@ -60,7 +62,7 @@ cantidadBotonCarrito();
 // FUNCIONES
 
 
-function mostrarGuitarras(arrayGuitarras, mensaje){
+function mostrarGuitarras(arrayGuitarras = guitarrasEnVenta, mensaje = "En este momento contamos con "+guitarrasEnVenta.length+" guitarras disponibles:"){
   const p = document.createElement("p");
   const ul = document.createElement("ul");
 
@@ -144,12 +146,16 @@ function buscarPrecioMaximoCrearInput(){
   }
 } 
 
-function ordenarPorPrecio(){
+function ordenarBarataACara(){
   guitarrasEnVenta.sort((a, b) => a.precio - b.precio);
-  const p = document.createElement("p");
-  p.textContent = "Las guitarras fueron ordenadas por precio de menor a mayor.";
-  guitarrasDiv.innerHTML = '';
-  guitarrasDiv.appendChild(p);
+  console.log("Las guitarras fueron ordenadas por precio de menor a mayor.");
+  mostrarGuitarras();
+}
+
+function ordenarCaraABarata(){
+  guitarrasEnVenta.sort((a, b) => b.precio - a.precio);
+  console.log("Las guitarras fueron ordenadas por precio de mayor a menor.");
+  mostrarGuitarras();
 }
 
 function buscarMarcaCrearInput(){
